@@ -1,27 +1,27 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { User } from './user';
 import { HttpService } from "./http.service";
 
 @Component({
-    selector: 'my-app1',
+    selector: 'my-app',
     template: `
-        <div>
-            <p>User name: {{user?.name}}</p>
-            <p>User age: {{user?.age}}</p>
-        </div>
+        <ul>
+            <li *ngFor="let user of users">
+                <p>User name: {{user?.name}}</p>
+                <p>User age: {{user?.age}}</p>
+            </li>
+        </ul>
     `,
     providers: [ HttpService ],
 })
 
-export class AppComponent1 implements OnInit {
+export class AppComponent implements OnInit {
 
-    user: User;
+    users: User[] = [];
 
-    constructor(private http: HttpClient) { }
+    constructor(private httpService: HttpService) { }
 
-    // We gets data from service
     ngOnInit() {
-        this.http.get('assets/user.json').subscribe((data: User) => this.user = data);
+        this.httpService.getUsers().subscribe(data => this.users = data);
     }
 }
