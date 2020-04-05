@@ -25,10 +25,10 @@ export class AppComponent implements OnInit {
     ngOnInit() {
         this.httpService.getUsers().subscribe(
             data => this.users = data,
-            error => {
-                this.error = error.message;
-                console.log(error);
-            }
+        //     error => {
+        //     this.error = error.message;
+        //     console.log(error);
+        // }
         );
     }
 }
