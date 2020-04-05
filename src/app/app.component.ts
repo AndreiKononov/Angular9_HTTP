@@ -1,18 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User } from './user';
+import { HttpService } from "./http.service";
 
 @Component({
-    selector: 'my-app',
+    selector: 'my-app1',
     template: `
         <div>
             <p>User name: {{user?.name}}</p>
             <p>User age: {{user?.age}}</p>
         </div>
-    `
+    `,
+    providers: [ HttpService ],
 })
 
-export class AppComponent implements OnInit {
+export class AppComponent1 implements OnInit {
 
     user: User;
 
