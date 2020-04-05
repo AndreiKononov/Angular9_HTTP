@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpService } from './http.service';
 import { User } from './user';
-import { HttpService } from "./http.service";
 
 @Component({
     selector: 'my-app',
     template: `
+        <div>{{error}}</div>
         <ul>
             <li *ngFor="let user of users">
-                <p>User name: {{user?.name}}</p>
-                <p>User age: {{user?.age}}</p>
+                <p>Имя пользователя: {{user?.name}}</p>
+                <p>Возраст пользователя: {{user?.age}}</p>
             </li>
         </ul>
     `,
@@ -18,10 +19,16 @@ import { HttpService } from "./http.service";
 export class AppComponent implements OnInit {
 
     users: User[] = [];
-
+    error: any;
     constructor(private httpService: HttpService) { }
 
     ngOnInit() {
-        this.httpService.getUsers().subscribe(data => this.users = data);
+        this.httpService.getUsers().subscribe(
+            data => this.users = data,
+            error => {
+                this.error = error.message;
+                console.log(error);
+            }
+        );
     }
 }
